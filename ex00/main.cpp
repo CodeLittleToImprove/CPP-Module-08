@@ -11,8 +11,41 @@
 /* ************************************************************************** */
 
 #include "easyfind.hpp"
-#include <vector>
+#include <vector> // for vector container
+#include <list> // for vector container
 #include <iostream>
+
+// Helper function to test searching
+template <typename Container, typename T>
+void test_search(Container &c, T &value)
+{
+	try
+	{
+		typename Container::iterator it = easyfind(c, value);
+		std::cout << "Found " << value << " at position "
+				  << std::distance(c.begin(), it) << std::endl;
+	}
+	catch (const NotFoundException& e)
+	{
+		std::cout << "Value " << value << " not found: " << e.what() << std::endl;
+	}
+}
+
+//overload for helper function const containers
+template <typename Container, typename T>
+void test_search(const Container &c, const T &value)
+{
+	try
+	{
+		typename Container::const_iterator it = easyfind(c, value);
+		std::cout << "Found " << value << " at position "
+				  << std::distance(c.begin(), it) << std::endl;
+	}
+	catch (const NotFoundException& e)
+	{
+		std::cout << "Value: " << value << e.what() << std::endl;
+	}
+}
 
 int main(void)
 {
@@ -28,29 +61,22 @@ int main(void)
 
 	// 3. way to fill vector, do it via array
 	int temp[] = {30, 20, 10};
-	std::vector<int> arr(temp, temp + 3);
-	try
-	{
-		int search_and_found = 10;
-		std::vector<int>::const_iterator it = easyfind(arr, search_and_found);
-		std::cout << "Found: " << *it << std::endl;
-	}
-	catch (const NotFoundException& e)
-	{
-		std::cout << "Exception: " << e.what() << std::endl;
-	}
+	std::vector<int> vec_arr(temp, temp + 3);
 
-	int search_no_found = 40;
+	test_search(vec_arr, 10);   // should find
+	test_search(vec_arr, 40);   // not found
 
-	try
-	{
-		std::vector<int>::const_iterator it = easyfind(arr, search_no_found);
-		std::cout << "Found: " << *it << std::endl;
-	}
-	catch (const NotFoundException& e)
-	{
-		std::cout << "Occurrence: " << search_no_found << e.what() << std::endl;
-	}
-	return 0;
+	std::vector<int> emptyVec;
+	test_search(emptyVec, 40); // empty container
+
+	// --- char example ---
+	char temp2[] = {'a', 'b', 'c'};
+	std::list<char> charList(temp2, temp2 + 3);
+	test_search(charList, 'b'); // should find
+	test_search(charList, 'z'); // not found
+
+	int temp3[] = {10, 20, 30};
+	const std::vector<int> constVec(temp, temp3 + 3);
+	test_search(constVec, 10);
 
 }

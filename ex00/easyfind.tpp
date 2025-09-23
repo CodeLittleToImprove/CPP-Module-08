@@ -16,6 +16,15 @@ typename T::iterator easyfind(T &con, int val)
 	return it;
 }
 
+template <typename T>
+typename T::const_iterator easyfind(const T &con, int val)
+{
+	typename T::const_iterator it = std::find(con.begin(), con.end(), val);
+	if (it == con.end())
+		throw NotFoundException();
+	return it;
+}
+
 const char * NotFoundException::what() const throw()
 {
 	return (" not found");
