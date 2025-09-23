@@ -10,5 +10,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 
 add_executable(CPP_08_ex00
-#        ex00/Template.cpp
-        ex00/main.cpp)
+        ex00/main.cpp
+        ex00/easyfind.hpp
+        ex00/easyfind.tpp)

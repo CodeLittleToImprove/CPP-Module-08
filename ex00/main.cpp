@@ -10,17 +10,47 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-// #include "Template.hpp"
-
-#include <array>
+#include "easyfind.hpp"
+#include <vector>
 #include <iostream>
 
 int main(void)
 {
-	int a[10];
-	a[17] = 6;
+	// easyfind returns the pointer at the position where it first found the occurrence
+	// 1.way to fill vector insert x times y value
+	// std::vector<int> arr(10, 10); // first count of elements, second value of all elements
 
-	std::array<int, 10> b;
+	// 2. way to fill vector, push manually to the vector
+	// std::vector<int> arr;
+	// arr.push_back(30);
+	// arr.push_back(20);
+	// arr.push_back(10);
+
+	// 3. way to fill vector, do it via array
+	int temp[] = {30, 20, 10};
+	std::vector<int> arr(temp, temp + 3);
+	try
+	{
+		int search_and_found = 10;
+		std::vector<int>::const_iterator it = easyfind(arr, search_and_found);
+		std::cout << "Found: " << *it << std::endl;
+	}
+	catch (const NotFoundException& e)
+	{
+		std::cout << "Exception: " << e.what() << std::endl;
+	}
+
+	int search_no_found = 40;
+
+	try
+	{
+		std::vector<int>::const_iterator it = easyfind(arr, search_no_found);
+		std::cout << "Found: " << *it << std::endl;
+	}
+	catch (const NotFoundException& e)
+	{
+		std::cout << "Occurrence: " << search_no_found << e.what() << std::endl;
+	}
+	return 0;
 
 }
