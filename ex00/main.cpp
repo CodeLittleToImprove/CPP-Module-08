@@ -13,6 +13,7 @@
 #include "easyfind.hpp"
 #include <vector> // for vector container
 #include <list> // for vector container
+#include <deque> // for deque container
 #include <iostream>
 
 // Helper function to test searching
@@ -25,7 +26,7 @@ void test_search(Container &c, T &value)
 		std::cout << "Found " << value << " at position "
 				  << std::distance(c.begin(), it) << std::endl;
 	}
-	catch (const NotFoundException& e)
+	catch (const NotFoundException &e)
 	{
 		std::cout << "Value " << value << " not found: " << e.what() << std::endl;
 	}
@@ -78,5 +79,11 @@ int main(void)
 	int temp3[] = {10, 20, 30};
 	const std::vector<int> constVec(temp, temp3 + 3);
 	test_search(constVec, 10);
+
+	std::deque<int> deq;
+	deq.push_back(10);
+	deq.push_back(20);
+	deq.push_back(30);
+	test_search(deq, 10);
 
 }

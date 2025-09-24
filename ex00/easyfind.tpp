@@ -25,7 +25,7 @@ typename T::const_iterator easyfind(const T &con, int val)
 	return it;
 }
 
-const char * NotFoundException::what() const throw()
+const char *NotFoundException::what() const throw()
 {
 	return (" not found");
 }
