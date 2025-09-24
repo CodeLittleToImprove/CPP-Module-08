@@ -13,3 +13,8 @@ add_executable(CPP_08_ex00
         ex00/main.cpp
         ex00/easyfind.hpp
         ex00/easyfind.tpp)
+
+add_executable(CPP_08_ex01
+        ex01/main.cpp
+        ex01/Span.hpp
+        ex01/Span.cpp)
