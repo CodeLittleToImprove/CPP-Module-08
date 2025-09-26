@@ -216,7 +216,8 @@ void test_no_span_possible()
 		sp.addNumber(10);
 		printColor("span elements: ", Color::BLUE);
 		sp.printSpan();
-		std::cout << "shortest span: " << sp.shortestSpan() << std::endl;
+		printColor("shortest span: ", Color::BLUE);
+		std::cout << sp.shortestSpan() << std::endl;
 	}
 	catch (const Span::NoSpanPossible &e)
 	{
