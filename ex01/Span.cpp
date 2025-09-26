@@ -1,28 +1,25 @@
 
 #include "Span.hpp"
 
-
-
-
 // Default constructor
 Span::Span():
-_capacity(0)
+	_capacity(0)
 {
-	// std::cout << "Default constructor called" << std::endl;
+	_element.reserve(_capacity);
 }
 
 // Parameterized constructor
-Span::Span(unsigned int N):
-_capacity(N)
+Span::Span(unsigned int N)
+	:_capacity(N)
 {
-
+	_element.reserve(_capacity);
 }
 
 // Copy constructor
 Span::Span(const Span &other):
 	_element(other._element), _capacity(other._capacity)
 {
-	// std::cout << "Copy constructor called" << std::endl;
+	_element.reserve(other._capacity); // without this the capacity would be different from the new object
 }
 
 // Copy Assignment operator overload
@@ -33,6 +30,7 @@ Span &Span::operator=(const Span &other)
 	{
 		_element = other._element;
 		_capacity = other._capacity;
+		_element.reserve(other._capacity); // without this the capacity would be different from the new object
 	}
 	return (*this);
 }
@@ -66,44 +64,6 @@ void Span::addNumber(long number)
 		throw OverMaxCapacity();
 }
 
-void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end)
-{
-	unsigned int range_size = static_cast<int>(std::distance(begin, end));
-
-	if (_element.size() + range_size > _capacity)
-	{
-		throw OverMaxCapacity();
-	}
-	for (std::vector<int>::iterator it = begin; it != end; it++)
-		_element.push_back(*it);
-}
-
-void Span::printSpan() const
-{
-	for (std::vector<int>::const_iterator it = _element.begin();
-		it != _element.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << "capacity = " << this->_element.capacity() << std::endl;
-	std::cout << "size = " << this->_element.size() << std::endl;
-	std::cout << std::endl;
-}
-
-void Span::sortPrintSpan() const
-{
-	std::vector<int> temp(_element);
-	std::sort(temp.begin(), temp.end());
-	for (std::vector<int>::const_iterator it = temp.begin();
-		it != temp.end(); ++it)
-	{
-		std::cout << *it << " ";
-	}
-	std::cout << "capacity = " << this->_element.capacity() << std::endl;
-	std::cout << "size = " << this->_element.size() << std::endl;
-	std::cout << std::endl;
-}
-
 int Span::shortestSpan() const
 {
 	if (_element.size() < 2)
@@ -130,4 +90,61 @@ int Span::longestSpan() const
 	longest = *temp.rbegin() - *temp.begin();
 
 	return longest;
+}
+
+void Span::addRandomNumbers(int amount)
+{
+	std::vector<int> temp(amount);
+	for (std::vector<int>::iterator it = temp.begin(); it != temp.end(); ++it)
+	{
+		*it = std::rand();
+	}
+	addNumber(temp.begin(), temp.end());
+}
+
+void Span::printSpan() const
+{
+	if (_element.size() == 0)
+	{
+		std::cout << "empty span" << std::endl;
+		std::cout << "\033[34mcapacity = \033[0m";
+		std::cout << _element.capacity() << std::endl;
+		std::cout << "\033[34msize = \033[0m";
+		std::cout << _element.size() << std::endl;
+		return;
+	}
+	for (std::vector<int>::const_iterator it = _element.begin();
+		it != _element.end(); ++it)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+	std::cout << "\033[34mcapacity = \033[0m";
+	std::cout << _element.capacity() << std::endl;
+	std::cout << "\033[34msize = \033[0m";
+	std::cout << _element.size() << std::endl;
+}
+
+void Span::sortPrintSpan() const
+{
+	if (_element.size() == 0)
+	{
+		std::cout << "empty span" << std::endl;
+		std::cout << "\033[34mcapacity = \033[0m";
+		std::cout << _element.capacity() << std::endl;
+		std::cout << "\033[34msize = \033[0m";
+		std::cout << _element.size() << std::endl;
+		return;
+	}
+	std::vector<int> temp(_element);
+	std::sort(temp.begin(), temp.end());
+	for (std::vector<int>::const_iterator it = temp.begin();
+		it != temp.end(); ++it)
+		std::cout << *it << " ";
+
+	std::cout << std::endl;
+	std::cout << "\033[34mcapacity = \033[0m";
+	std::cout << _element.capacity() << std::endl;
+	std::cout << "\033[34msize = \033[0m";
+	std::cout << _element.size() << std::endl;
 }
