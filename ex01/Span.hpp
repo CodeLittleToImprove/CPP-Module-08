@@ -32,6 +32,7 @@ class Span
 		void addRandomNumbers(int amount);
 		void printSpan() const;
 		void sortPrintSpan() const;
+		const std::vector<int> &getElements() const; // only for testing other Span implementations
 		class OverMaxCapacity : public std::exception
 		{
 		public:
@@ -43,3 +44,4 @@ class Span
 			const char* what() const throw();
 		};
 };
+void printSpanGeneric(const Span &sp); // only for testing other Span implementations

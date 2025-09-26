@@ -269,7 +269,7 @@ void test_duplicates()
 		printColor("span elements: ", Color::BLUE);
 		sp.printSpan();
 		printColor("shortest span: ", Color::BLUE);
-		std::cout << sp.shortestSpan() << std::endl; // should be 0
+		std::cout << sp.shortestSpan() << std::endl;
 		printColor("longest span: ", Color::BLUE);
 		std::cout << sp.longestSpan() << std::endl;
 	}
@@ -293,4 +293,5 @@ int main(void)
 	test_no_span_possible();
 	test_large_span_iterators();
 	test_duplicates();
+	// test_duplicates_generic(); // only for testing other Span implementations
 }

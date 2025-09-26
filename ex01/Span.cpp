@@ -148,3 +148,27 @@ void Span::sortPrintSpan() const
 	std::cout << "\033[34msize = \033[0m";
 	std::cout << _element.size() << std::endl;
 }
+
+const std::vector<int>& Span::getElements() const
+{
+	return _element;
+}
+
+void printSpanGeneric(const Span &sp)
+{
+	// std::cout << "generic printer for generic function" << std::endl;
+	if (sp.getElements().empty())
+		std::cout << "empty span" << std::endl;
+	else
+	{
+		for (std::vector<int>::const_iterator it = sp.getElements().begin();
+			it != sp.getElements().end(); ++it)
+				std::cout << *it << " ";
+		std::cout << std::endl;
+	}
+
+	std::cout << "\033[34mcapacity = \033[0m" << sp.getElements().capacity() << std::endl;
+	std::cout << "\033[34msize = \033[0m" << sp.getElements().size() << std::endl;
+}
+
+
